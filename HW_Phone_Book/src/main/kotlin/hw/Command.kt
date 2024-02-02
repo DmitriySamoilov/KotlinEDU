@@ -8,10 +8,6 @@ sealed interface Command {
         override fun isValid(): Boolean {
             return true
         }
-
-        fun run(): Person {
-            TODO("Not yet implemented")
-        }
     }
 
     data object Help: Command {
@@ -38,10 +34,12 @@ sealed interface Command {
             for (person in persons){
                if (person.key == this.name){
                    person.value.phone.add(phone)
+                   println(person)
                    return
                }
             }
              persons[name] = Person(name = this.name, phone = mutableListOf(this.phone))
+             println(persons[name])
          }
     }
 
