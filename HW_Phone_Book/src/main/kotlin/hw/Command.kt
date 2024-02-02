@@ -2,9 +2,8 @@ package hw
 
 sealed interface Command {
     fun isValid(): Boolean
-    //fun run(): Person
+    //fun run():
     data object Exit : Command {
-
         override fun isValid(): Boolean {
             return true
         }
@@ -18,6 +17,8 @@ sealed interface Command {
             println("Menu:\n" +
                     "exit\n" +
                     "help\n" +
+                    "find <Номер телефона>\n" +
+                    "find <Адрес электронной почты>\n" +
                     "show <Имя>\n" +
                     "add <Имя> phone <Номер телефона>\n" +
                     "add <Имя> email <Адрес электронной почты>")

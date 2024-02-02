@@ -50,7 +50,6 @@ private fun readCommand(): Command {
         "show" -> {
             if (commandLine.size > 1){
                 resultCommand = Command.Show(name = commandLine[1])
-
                 if (resultCommand.isValid()) return resultCommand }
         }
         "find" -> {
