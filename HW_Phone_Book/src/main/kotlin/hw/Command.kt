@@ -42,12 +42,12 @@ sealed interface Command {
          override fun run(persons: MutableMap<String, Person>){
             for (person in persons){
                if (person.key == this.name){
-                   person.value.phone.add(phone)
+                   person.value.phones.add(phone)
                    println(person.value)
                    return
                }
             }
-             persons[name] = Person(name = this.name, phone = mutableListOf(this.phone))
+             persons[name] = Person(name = this.name, phones = mutableListOf(this.phone))
              println(persons[name])
          }
     }
@@ -59,12 +59,12 @@ sealed interface Command {
         override fun run(persons: MutableMap<String, Person>){
             for (person in persons){
                 if (person.key == this.name){
-                    person.value.email.add(email)
+                    person.value.emails.add(email)
                     println(person.value)
                     return
                 }
             }
-            persons[name] = Person(name = this.name, email = mutableListOf(this.email))
+            persons[name] = Person(name = this.name, emails = mutableListOf(this.email))
             println(persons[name])
         }
     }
@@ -89,10 +89,10 @@ sealed interface Command {
         }
         override fun run(persons: MutableMap<String, Person>){
             for(person in persons){
-                for (email in person.value.email){
+                for (email in person.value.emails){
                     if (email == whatToFind) println(person.value)
                 }
-                for (phone in person.value.phone){
+                for (phone in person.value.phones){
                     if (phone == whatToFind) println(person.value)
                 }
             }
