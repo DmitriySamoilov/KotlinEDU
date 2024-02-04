@@ -1,11 +1,17 @@
 package hw
 
+import java.io.File
+import kotlin.system.exitProcess
+
 sealed interface Command {
     fun isValid(): Boolean
-    //fun run():
+    fun run(persons: MutableMap<String, Person>)
     data object Exit : Command {
         override fun isValid(): Boolean {
             return true
+        }
+        override fun run(persons: MutableMap<String, Person>) {
+            exitProcess(0)
         }
     }
 
@@ -13,15 +19,17 @@ sealed interface Command {
         override fun isValid(): Boolean {
             return true
         }
-        fun run(){
-            println("Menu:\n" +
+
+        override fun run(persons: MutableMap<String, Person>) {
+           println("Menu help:\n" +
                     "exit\n" +
                     "help\n" +
                     "find <Номер телефона>\n" +
                     "find <Адрес электронной почты>\n" +
                     "show <Имя>\n" +
                     "add <Имя> phone <Номер телефона>\n" +
-                    "add <Имя> email <Адрес электронной почты>")
+                    "add <Имя> email <Адрес электронной почты>\n" +
+                    "export <Путь к файлу>")
         }
 
     }
@@ -31,11 +39,11 @@ sealed interface Command {
             return this.phone.matches(Regex("""\+[0-9]+"""))
         }
 
-         fun run(persons: MutableMap<String, Person>){
+         override fun run(persons: MutableMap<String, Person>){
             for (person in persons){
                if (person.key == this.name){
                    person.value.phone.add(phone)
-                   println(person)
+                   println(person.value)
                    return
                }
             }
@@ -48,11 +56,11 @@ sealed interface Command {
         override fun isValid(): Boolean {
                 return this.email.matches(Regex("""[A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z]{2,}"""))
             }
-        fun run(persons: MutableMap<String, Person>){
+        override fun run(persons: MutableMap<String, Person>){
             for (person in persons){
                 if (person.key == this.name){
                     person.value.email.add(email)
-                    println(person)
+                    println(person.value)
                     return
                 }
             }
@@ -64,10 +72,10 @@ sealed interface Command {
         override fun isValid(): Boolean {
             return true
         }
-        fun run(persons: MutableMap<String, Person>){
+        override fun run(persons: MutableMap<String, Person>){
             for (person in persons){
                 if (person.key == this.name){
-                    println(person)
+                    println(person.value)
                     return
                 }
             }
@@ -79,7 +87,7 @@ sealed interface Command {
         override fun isValid(): Boolean {
             return true
         }
-        fun run(persons: MutableMap<String, Person>){
+        override fun run(persons: MutableMap<String, Person>){
             for(person in persons){
                 for (email in person.value.email){
                     if (email == whatToFind) println(person.value)
@@ -89,5 +97,14 @@ sealed interface Command {
                 }
             }
         }
+    }
+    data class Export(private val filePath: String): Command{
+        override fun isValid(): Boolean {
+            return true
+        }
+        override fun run(persons: MutableMap<String, Person>) {
+             File(filePath).writeText(Json(persons).toString())
+        }
+
     }
 }
