@@ -15,7 +15,7 @@ private fun readCommand(): Command {
     when (commandLine[0].lowercase()) {
         "export" -> if (commandLine.size == 2) return Command.Export(commandLine[1])
         "exit" -> return Command.Exit
-        "show" -> if (commandLine.size == 2) return Command.Show(name = commandLine[1])
+        "show" -> if (commandLine.size == 2) return Command.Show(nameToFind = commandLine[1])
         "find" -> if (commandLine.size == 2) return Command.Find(whatToFind = commandLine[1])
         "add" -> {
             if (commandLine.size == 4) {

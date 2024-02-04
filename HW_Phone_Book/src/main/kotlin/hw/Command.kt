@@ -68,13 +68,13 @@ sealed interface Command {
             println(persons[name])
         }
     }
-    data class Show(val name: String): Command {
+    data class Show(val nameToFind: String): Command {
         override fun isValid(): Boolean {
             return true
         }
         override fun run(persons: MutableMap<String, Person>){
             for (person in persons){
-                if (person.key == this.name){
+                if (person.key == this.nameToFind){
                     println(person.value)
                     return
                 }
