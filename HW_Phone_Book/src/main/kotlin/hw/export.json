@@ -1,1 +1,1 @@
-[{"name": Tom, "phone": [+789456], "email": [123@gmail.com]},{"name": Peter, "phone": [+123456], "email": []},{"name": Lucy, "phone": [], "email": [09fg@gmail.com]}]
+[{"name": "Tom", "phones": ["+789456","+123456"], "emails": []},{"name": "Peter", "phones": ["+951456"], "emails": ["789@gmail.com","123@gmail.com"]},{"name": "Lucy", "phones": ["+753123"], "emails": []}]

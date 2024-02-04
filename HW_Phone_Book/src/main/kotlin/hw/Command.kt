@@ -104,6 +104,7 @@ sealed interface Command {
         }
         override fun run(persons: MutableMap<String, Person>) {
              File(filePath).writeText(Json(persons).toString())
+            //println(Json(persons).toString())
         }
 
     }
